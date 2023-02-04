@@ -1,7 +1,7 @@
+import math
+import random
 import pygad
-import numpy
 
-# S = [1, 2, 3, 6, 10, 17, 25, 29, 30, 41, 51, 60, 70, 79, 80]
 items = [
     {'item': 'zegar',
      'value': 100,
@@ -41,6 +41,7 @@ items = [
 num_items = 20
 max_weight = 25
 
+
 def knapsack_fitness(solution, solution_idx):
     total_value = 0
     total_weight = 0
@@ -53,6 +54,7 @@ def knapsack_fitness(solution, solution_idx):
     else:
         return total_value
 
+
 gene_space = [0, 1]
 num_parents_mating = 5
 num_generations = 30
@@ -63,7 +65,6 @@ parent_selection_type = "sss"
 crossover_type = "single_point"
 mutation_type = "random"
 mutation_percent_genes = 8
-
 
 ga_instance = pygad.GA(
     num_generations=num_generations,
@@ -91,7 +92,42 @@ for idx, item in enumerate(items):
         result.append(item['item'])
         result_value += item['value']
 
-
 print("Predicted output based on the best solution : {result}".format(result=result))
 
 ga_instance.plot_fitness()
+
+
+# 2)
+# tutaj max to około 3.14
+def endurance(x, y, z, u, v, w):
+    return math.exp(-2 * (y - math.sin(x)) ** 2) + math.sin(z * u) + math.cos(v * w)
+
+
+def metal_fitness(solution, solution_idx):
+    return endurance(solution[0], solution[1], solution[2], solution[3], solution[4], solution[5])
+
+
+metal_names = ['x', 'y', 'z', 'u', 'v', 'w']
+metals = {}
+
+for i in metal_names:
+    metals[i] = round(random.uniform(0, 1), 2)
+
+gene_space2 = [{'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1},
+               {'low': 0, 'high': 1}, {'low': 0, 'high': 1}]
+
+ga_metals = pygad.GA(
+    fitness_func=metal_fitness,
+    num_generations=50,
+    num_parents_mating=5,
+    crossover_type="single_point",
+    mutation_type="random",
+    sol_per_pop=sol_per_pop,
+    num_genes=6,
+    gene_space=gene_space2,
+)
+ga_metals.run()
+
+solution, solution_fitness, solution_idx = ga_metals.best_solution()
+print("Parameters of the best solution : {solution}".format(solution=solution))
+print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
