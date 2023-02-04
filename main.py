@@ -63,85 +63,85 @@ def knapsack_fitness(solution, solution_idx):
     else:
         return total_value
 
-#
-# gene_space = [0, 1]
-# num_parents_mating = 5
-# num_generations = 30
-# keep_parents = 2
-# sol_per_pop = 10
-# num_genes = len(items)
-# parent_selection_type = "sss"
-# crossover_type = "single_point"
-# mutation_type = "random"
-# mutation_percent_genes = 8
-#
-# ga_instance = pygad.GA(
-#     num_generations=num_generations,
-#     gene_space=gene_space,
-#     num_parents_mating=num_parents_mating,
-#     fitness_func=knapsack_fitness,
-#     sol_per_pop=sol_per_pop,
-#     num_genes=num_genes,
-#     parent_selection_type=parent_selection_type,
-#     keep_parents=keep_parents,
-#     crossover_type=crossover_type,
-#     mutation_type=mutation_type,
-#     mutation_percent_genes=mutation_percent_genes)
-# ga_instance.run()
-#
-# solution, solution_fitness, solution_idx = ga_instance.best_solution()
-# print("Parameters of the best solution : {solution}".format(solution=solution))
-# print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
-#
-# result = []
-# result_value = 0
-#
-# for idx, item in enumerate(items):
-#     if solution[idx] == 1:
-#         result.append(item['item'])
-#         result_value += item['value']
-#
-# print("Predicted output based on the best solution : {result}".format(result=result))
-#
-# ga_instance.plot_fitness()
-#
-#
+
+gene_space = [0, 1]
+num_parents_mating = 5
+num_generations = 30
+keep_parents = 2
+sol_per_pop = 10
+num_genes = len(items)
+parent_selection_type = "sss"
+crossover_type = "single_point"
+mutation_type = "random"
+mutation_percent_genes = 8
+
+ga_instance = pygad.GA(
+    num_generations=num_generations,
+    gene_space=gene_space,
+    num_parents_mating=num_parents_mating,
+    fitness_func=knapsack_fitness,
+    sol_per_pop=sol_per_pop,
+    num_genes=num_genes,
+    parent_selection_type=parent_selection_type,
+    keep_parents=keep_parents,
+    crossover_type=crossover_type,
+    mutation_type=mutation_type,
+    mutation_percent_genes=mutation_percent_genes)
+ga_instance.run()
+
+solution, solution_fitness, solution_idx = ga_instance.best_solution()
+print("Parameters of the best solution : {solution}".format(solution=solution))
+print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+
+result = []
+result_value = 0
+
+for idx, item in enumerate(items):
+    if solution[idx] == 1:
+        result.append(item['item'])
+        result_value += item['value']
+
+print("Predicted output based on the best solution : {result}".format(result=result))
+
+ga_instance.plot_fitness()
+
+
 # # 2)
 # # tutaj max to około 3.14
-# def endurance(x, y, z, u, v, w):
-#     return math.exp(-2 * (y - math.sin(x)) ** 2) + math.sin(z * u) + math.cos(v * w)
-#
-#
-# def metal_fitness(solution, solution_idx):
-#     return endurance(solution[0], solution[1], solution[2], solution[3], solution[4], solution[5])
-#
-#
-# metal_names = ['x', 'y', 'z', 'u', 'v', 'w']
-# metals = {}
-#
-# for i in metal_names:
-#     metals[i] = round(random.uniform(0, 1), 2)
-#
-# gene_space2 = [{'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1},
-#                {'low': 0, 'high': 1}, {'low': 0, 'high': 1}]
-#
-# ga_metals = pygad.GA(
-#     fitness_func=metal_fitness,
-#     num_generations=50,
-#     num_parents_mating=5,
-#     crossover_type="single_point",
-#     mutation_type="random",
-#     sol_per_pop=sol_per_pop,
-#     num_genes=6,
-#     gene_space=gene_space2,
-# )
-# ga_metals.run()
-#
-# solution, solution_fitness, solution_idx = ga_metals.best_solution()
-# print("Parameters of the best solution : {solution}".format(solution=solution))
-# print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
-#
-# ga_metals.plot_fitness()
+def endurance(x, y, z, u, v, w):
+    return math.exp(-2 * (y - math.sin(x)) ** 2) + math.sin(z * u) + math.cos(v * w)
+
+
+def metal_fitness(solution, solution_idx):
+    return endurance(solution[0], solution[1], solution[2], solution[3], solution[4], solution[5])
+
+
+metal_names = ['x', 'y', 'z', 'u', 'v', 'w']
+metals = {}
+
+for i in metal_names:
+    metals[i] = round(random.uniform(0, 1), 2)
+
+gene_space2 = [{'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1}, {'low': 0, 'high': 1},
+               {'low': 0, 'high': 1}, {'low': 0, 'high': 1}]
+
+ga_metals = pygad.GA(
+    fitness_func=metal_fitness,
+    num_generations=50,
+    num_parents_mating=5,
+    crossover_type="single_point",
+    mutation_type="random",
+    sol_per_pop=sol_per_pop,
+    num_genes=6,
+    gene_space=gene_space2,
+)
+ga_metals.run()
+
+solution, solution_fitness, solution_idx = ga_metals.best_solution()
+print("Parameters of the best solution : {solution}".format(solution=solution))
+print("Fitness value of the best solution = {solution_fitness}".format(solution_fitness=solution_fitness))
+
+ga_metals.plot_fitness()
 
 # 4)
 
